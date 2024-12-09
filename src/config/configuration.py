@@ -69,7 +69,8 @@ class ConfigurationManager:
             per_device_eval_batch_size = bart_params.per_device_eval_batch_size,
             gradient_accumulation_steps = bart_params.gradient_accumulation_steps,
             weight_decay = bart_params.weight_decay,
-            num_train_epochs = bart_params.num_train_epochs
+            num_train_epochs = bart_params.num_train_epochs,
+            save_strategy= bart_params.save_strategy
         )
 
         

@@ -7,6 +7,8 @@ import os
 from src.entity.config_entity import ModelTrainerConfig
 from src.components.compute_metrics import compute_metrics
 
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
 class ModelTrainer:
     def __init__(self, config: ModelTrainerConfig):
         self.config = config
@@ -30,6 +32,7 @@ class ModelTrainer:
             gradient_accumulation_steps=self.config.gradient_accumulation_steps,
             weight_decay=self.config.weight_decay,
             num_train_epochs=self.config.weight_decay,
+            save_strategy= self.config.save_strategy,
             fp16=True
         ) 
         trainer = Trainer(model=model,

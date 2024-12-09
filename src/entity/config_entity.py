@@ -35,3 +35,4 @@ class ModelTrainerConfig:
     gradient_accumulation_steps: int
     weight_decay: float
     num_train_epochs: int
+    save_strategy: str
