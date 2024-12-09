@@ -13,3 +13,13 @@ data_validation:
 data_transformation:
   root_dir: artifacts/data_transformation
   data_path: artifacts/data_ingestion/Dataset
+  filtered_data_path: artifacts/data_transformation/Dataset
+  tokenizer1_name: facebook/bart-large-cnn
+  tokenizer2_name: google/pegasus-cnn_dailymail
+
+model_trainer:
+  root_dir: artifacts/model_trainer
+  data1_path: artifacts/data_transformation/tokenized_bart
+  data2_path: artifacts/data_transformation/tokenized_pegasus
+  model1_ckpt: facebook/bart-large-cnn
+  model2_ckpt: google/pegasus-cnn_dailymail

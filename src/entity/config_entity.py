@@ -18,3 +18,21 @@ class DataValidationConfig:
 class DataTransformationconfig:
     root_dir: Path
     data_path: Path
+    filtered_data_path: Path
+    tokenizer1_name: Path
+    tokenizer2_name: Path
+
+@dataclass
+class ModelTrainerConfig:
+    root_dir: Path
+    data_path: Path
+    model_ckpt: Path
+    output_dir: str
+    evaluation_strategy: str
+    metric_for_best_model: str
+    learning_rate: float
+    per_device_train_batch_size: int
+    per_device_eval_batch_size: int
+    gradient_accumulation_steps: int
+    weight_decay: float
+    num_train_epochs: int

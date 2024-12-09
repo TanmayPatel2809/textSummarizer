@@ -1,6 +1,6 @@
 from src.constants import *
 from src.utilis.common import read_yaml, create_directories
-from src.entity.config_entity import (DataIngestionconfig, DataValidationConfig, DataTransformationconfig)
+from src.entity.config_entity import (DataIngestionconfig, DataValidationConfig, DataTransformationconfig, ModelTrainerConfig)
 
 class ConfigurationManager:
     def __init__(self,
@@ -45,6 +45,47 @@ class ConfigurationManager:
         create_directories([config.root_dir])
         data_transformation_config = DataTransformationconfig(
             root_dir= config.root_dir,
-            data_path=config.data_path
+            data_path=config.data_path,
+            filtered_data_path = config.filtered_data_path,
+            tokenizer1_name=config.tokenizer1_name,
+            tokenizer2_name=config.tokenizer2_name
         )
         return data_transformation_config
+    
+    def get_model_trainer_config(self):
+        config=self.config.model_trainer
+        bart_params=self.params.BART
+        pegasus_params =self.params.Pegasus
+
+        create_directories([config.root_dir])
+
+        bart_model_trainer_config=ModelTrainerConfig(
+            root_dir=config.root_dir,
+            data_path=config.data1_path,
+            model_ckpt = config.model1_ckpt,
+            output_dir= bart_params.output_dir,
+            evaluation_strategy = bart_params.evaluation_strategy,
+            metric_for_best_model = bart_params.metric_for_best_model,
+            learning_rate = bart_params.learning_rate,
+            per_device_train_batch_size = bart_params.per_device_train_batch_size,
+            per_device_eval_batch_size = bart_params.per_device_eval_batch_size,
+            gradient_accumulation_steps = bart_params.gradient_accumulation_steps,
+            weight_decay = bart_params.weight_decay,
+            num_train_epochs = bart_params.num_train_epochs
+        )
+
+        pegasus_model_trainer_config=ModelTrainerConfig(
+            root_dir=config.root_dir,
+            data_path=config.data2_path,
+            model_ckpt = config.model2_ckpt,
+            output_dir= pegasus_params.output_dir,
+            evaluation_strategy = pegasus_params.evaluation_strategy,
+            metric_for_best_model = pegasus_params.metric_for_best_model,
+            learning_rate = pegasus_params.learning_rate,
+            per_device_train_batch_size = pegasus_params.per_device_train_batch_size,
+            per_device_eval_batch_size = pegasus_params.per_device_eval_batch_size,
+            gradient_accumulation_steps = pegasus_params.gradient_accumulation_steps,
+            weight_decay = pegasus_params.weight_decay,
+            num_train_epochs = pegasus_params.num_train_epochs
+        )
+        return bart_model_trainer_config, pegasus_model_trainer_config
