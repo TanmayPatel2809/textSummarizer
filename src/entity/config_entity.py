@@ -19,8 +19,7 @@ class DataTransformationconfig:
     root_dir: Path
     data_path: Path
     filtered_data_path: Path
-    tokenizer1_name: Path
-    tokenizer2_name: Path
+    tokenizer_name: Path
 
 @dataclass
 class ModelTrainerConfig:

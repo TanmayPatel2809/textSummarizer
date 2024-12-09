@@ -19,8 +19,7 @@ class DataTransformationTrainingPipeline:
                 data_transformation_config = config.get_data_transformation_config()
                 data_transformation = DataTransformation(config=data_transformation_config)
                 data_transformation.data_cleaning()
-                data_transformation.save("bart")
-                data_transformation.save("pegasus")
+                data_transformation.convert()
             else :
                 raise Exception("Your data scheme is not valid")
             
