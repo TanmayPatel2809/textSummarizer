@@ -1,0 +1,7 @@
+COLUMNS:
+  id: object
+  dialogue: object
+  summary: object
+
+TARGET_COLUMN:
+  name: summary
