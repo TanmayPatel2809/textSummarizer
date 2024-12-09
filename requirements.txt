@@ -1,0 +1,15 @@
+ipykernel
+pyyaml
+joblib
+ensure
+python-box
+datasets
+py7zr
+matplotlib
+torch
+transformers
+accelerate
+bertviz
+evaluate
+rouge_score
+protobuf
