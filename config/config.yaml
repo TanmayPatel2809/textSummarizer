@@ -14,9 +14,9 @@ data_transformation:
   root_dir: artifacts/data_transformation
   data_path: artifacts/data_ingestion/Dataset
   filtered_data_path: artifacts/data_transformation/Dataset
-  tokenizer_name: google/flan-t5-base
+  tokenizer_name: facebook/bart-large-cnn
 
 model_trainer:
   root_dir: artifacts/model_trainer
   data_path: artifacts/data_transformation/Dataset
-  model_ckpt: google/flan-t5-base
+  model_ckpt: facebook/bart-large-cnn

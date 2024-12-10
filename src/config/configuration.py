@@ -53,7 +53,7 @@ class ConfigurationManager:
     
     def get_model_trainer_config(self)-> ModelTrainerConfig:
         config=self.config.model_trainer
-        model_params=self.params.T5
+        model_params=self.params.BART
 
         create_directories([config.root_dir])
 
