@@ -53,25 +53,25 @@ class ConfigurationManager:
     
     def get_model_trainer_config(self)-> ModelTrainerConfig:
         config=self.config.model_trainer
-        bart_params=self.params.BART
+        model_params=self.params.T5
 
         create_directories([config.root_dir])
 
-        bart_model_trainer_config=ModelTrainerConfig(
+        model_trainer_config=ModelTrainerConfig(
             root_dir=config.root_dir,
             data_path=config.data_path,
             model_ckpt = config.model_ckpt,
-            output_dir= bart_params.output_dir,
-            evaluation_strategy = bart_params.evaluation_strategy,
-            metric_for_best_model = bart_params.metric_for_best_model,
-            learning_rate = bart_params.learning_rate,
-            per_device_train_batch_size = bart_params.per_device_train_batch_size,
-            per_device_eval_batch_size = bart_params.per_device_eval_batch_size,
-            gradient_accumulation_steps = bart_params.gradient_accumulation_steps,
-            weight_decay = bart_params.weight_decay,
-            num_train_epochs = bart_params.num_train_epochs,
-            save_strategy= bart_params.save_strategy
+            output_dir= model_params.output_dir,
+            evaluation_strategy = model_params.evaluation_strategy,
+            metric_for_best_model = model_params.metric_for_best_model,
+            learning_rate = model_params.learning_rate,
+            per_device_train_batch_size = model_params.per_device_train_batch_size,
+            per_device_eval_batch_size = model_params.per_device_eval_batch_size,
+            gradient_accumulation_steps = model_params.gradient_accumulation_steps,
+            weight_decay = model_params.weight_decay,
+            num_train_epochs = model_params.num_train_epochs,
+            save_strategy= model_params.save_strategy
         )
 
         
-        return bart_model_trainer_config
+        return model_trainer_config

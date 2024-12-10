@@ -1,10 +1,12 @@
-from transformers import BartForConditionalGeneration, BartTokenizer
-from transformers import TrainingArguments, Trainer
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from transformers import TrainingArguments, Trainer, EarlyStoppingCallback
 from transformers import DataCollatorForSeq2Seq
 import torch
 from datasets import load_from_disk
 import os
 from src.entity.config_entity import ModelTrainerConfig
+import nltk
+nltk.download('punkt')
 
 from evaluate import load
 from transformers import pipeline
@@ -20,7 +22,7 @@ class ModelTrainer:
         self.config = config
 
     def compute_metrics(self,eval_pred):
-        tokenizer = BartTokenizer.from_pretrained(self.config.model_ckpt)
+        tokenizer = AutoTokenizer.from_pretrained(self.config.model_ckpt)
 
         predictions, labels = eval_pred# Obtaining predictions and true labels
         
@@ -33,7 +35,7 @@ class ModelTrainer:
         decoded_labels = ["\n".join(nltk.sent_tokenize(label.strip())) for label in decoded_labels]
         
         
-        result = metric.compute(predictions=decoded_preds, references=decoded_labels, use_stemmer=True)
+        result = rouge_metric.compute(predictions=decoded_preds, references=decoded_labels, use_stemmer=True)
         result = {key: value.mid.fmeasure * 100 for key, value in result.items()} # Extracting some results
 
         prediction_lens = [np.count_nonzero(pred != tokenizer.pad_token_id) for pred in predictions]
@@ -43,8 +45,8 @@ class ModelTrainer:
     
     def train(self):
         device = "cuda" if torch.cuda.is_available() else "cpu"
-        tokenizer = BartTokenizer.from_pretrained(self.config.model_ckpt)
-        model = BartForConditionalGeneration.from_pretrained(self.config.model_ckpt).to(device)
+        tokenizer = AutoTokenizer.from_pretrained(self.config.model_ckpt)
+        model = AutoModelForSeq2SeqLM.from_pretrained(self.config.model_ckpt).to(device)
         data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 
         #loading the data
@@ -69,7 +71,7 @@ class ModelTrainer:
             eval_dataset=dataset["validation"],
             tokenizer=tokenizer,
             data_collator=data_collator,
-            compute_metrics=self.compute_metrics,
+            compute_metrics=self.compute_metrics
         )
         torch.cuda.empty_cache()
         trainer.train()

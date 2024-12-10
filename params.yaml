@@ -1,5 +1,5 @@
-BART:
-  output_dir: "BART"
+T5:
+  output_dir: "T5"
   evaluation_strategy: "epoch"
   metric_for_best_model: "eval_loss"
   learning_rate: 2e-5
