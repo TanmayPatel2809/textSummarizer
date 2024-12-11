@@ -13,3 +13,4 @@ bertviz
 evaluate
 rouge_score
 protobuf
+streamlit
