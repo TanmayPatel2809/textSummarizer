@@ -18,4 +18,4 @@ logging.basicConfig(
     ]
 )
 
-logger= logging.getLogger("legalDocumentSummarizer")
+logger= logging.getLogger("textSummarizer")
